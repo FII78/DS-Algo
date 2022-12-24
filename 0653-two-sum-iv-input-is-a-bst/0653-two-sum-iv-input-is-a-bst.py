@@ -7,28 +7,17 @@
 class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
         
-        pairs = defaultdict(int)
-        nodes = set()
+        pairs = set()
         
-        def bst(root):
-            if not root:
-                return 
+        def search(root):
+            # if there was a valid pair it wud've been returned by now
+            if not root: 
+                return False
             
-            if k - root.val != root.val:
-                pairs[k - root.val] = root.val 
-                
-            nodes.add(root.val)
-            bst(root.left)
-            bst(root.right)
-        
-        bst(root)
-        
-        for keys in pairs:
-            if keys in nodes:
+            if root.val in pairs:
                 return True
-        return False
             
+            pairs.add(k - root.val)
+            return search(root.left) or search(root.right)
         
-        
-        
-        
+        return search(root)
