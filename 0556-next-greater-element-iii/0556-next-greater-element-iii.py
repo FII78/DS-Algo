@@ -1,12 +1,6 @@
 class Solution:
-    def output(self, nums, n):
-        opt = int("".join(list(map(str, nums))))
-        if opt <= 2 ** 31 - 1 and opt > n:
-            return opt
-        else:
-            return -1
     def nextGreaterElement(self, n: int) -> int:
-        nums = list(map(int,str(n)))
+        nums = list(str(n))
         
         i = len(nums)-1
         
@@ -14,9 +8,7 @@ class Solution:
             i -= 1
             
         if i == 0:
-            nums.reverse()
-            return self.output(nums, n)
-           
+            return -1
         
         j = len(nums)-1
         
@@ -25,5 +17,7 @@ class Solution:
         
         nums[i-1], nums[j] = nums[j], nums[i-1]
         nums[i:] = nums[-1:i-1:-1]
-        return self.output(nums, n)
+        ret = int(''.join(nums))
+        
+        return ret if ret < 1<<31 else -1
         
