@@ -1,13 +1,20 @@
 class Solution:
     def minimumRecolors(self, blocks: str, k: int) -> int:
-        #counting the number of "W"s in range of every K and finding the minimum number of "W"s overall.
+        #Sliding window
         
+        l = -1
         _min = float("inf")
+        white_cnt = 0
         
-        for i in range(len(blocks) - k + 1):
-            white_cnt = blocks.count('W', i, i + k)
-            _min = min(white_cnt, _min)
-        
+        for r, c in enumerate(blocks):
+            if c == "W":
+                white_cnt += 1
+            if r - l == k:
+                _min = min(white_cnt, _min)
+                l += 1
+                if blocks[l] == "W":
+                    white_cnt -= 1
+              
         return _min
                 
         
